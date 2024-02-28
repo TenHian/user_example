@@ -18,7 +18,23 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "catppuccin-macchiato",
+  plugins = {
+    {
+      "sainnhe/sonokai",
+      init = function() -- init function runs before the plugin is loaded
+        vim.g.sonokai_style = "maia"
+      end,
+    },
+    {
+      "loctvl842/monokai-pro.nvim",
+      config = function()
+        require("monokai-pro").setup {
+          filter = "machine", -- classic | octagon | pro | machine | ristretto | spectrum
+        }
+      end,
+    },
+  },
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -51,6 +67,18 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
+      "clangd",
+    },
+    config = {
+      clangd = {
+        capabilities = { offsetEncoding = "utf-8" },
+        options = {
+          "--clang-tidy",
+          "--j=12",
+          "--completion-style=detailed",
+          "--header-insertion=never",
+        },
+      },
     },
   },
 
